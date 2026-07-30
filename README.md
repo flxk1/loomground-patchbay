@@ -2,8 +2,9 @@
 
 The Loomground presentation plane: shell renderers, the render harness, the
 session presentation layer, and a standalone Patchbay canvas. Patchbay renders
-structured plane data; it does not define governance vocabulary or execute
-governed operations.
+structured plane data and presents governance concepts (grades, verdicts,
+reserved states, the audit trail) in its shell chrome, but it implements no
+decision policy and executes no governed operations.
 
 ## Package contents
 

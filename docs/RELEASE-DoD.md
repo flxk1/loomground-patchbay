@@ -26,8 +26,9 @@ authority is `python3 tools/release_gate.py`.
       including any compatibility break.
 - [ ] New shell behavior has a real DOM assertion covering success, refusal,
       keyboard access, and write confirmation where applicable.
-- [ ] No governance vocabulary or decision policy has leaked into the
-      presentation plane.
+- [ ] No decision policy or governed execution has leaked into the
+      presentation plane. (Governance concepts may appear as display labels;
+      their semantics and enforcement stay out of this plane.)
 - [ ] RVND's consumer gate records the exact Patchbay root it consumes.
 - [ ] RVND gates licensing, attribution, accessibility, and browser-support
       evidence.
