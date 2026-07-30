@@ -324,6 +324,9 @@ class HostRoutes:
         self.send_response(code)
         self.send_header("Content-Type", ctype)
         self.send_header("Content-Length", str(len(b)))
+        # never leak the URL (which can carry an action-link token) as a
+        # Referer to any origin — belt-and-braces alongside the CSP.
+        self.send_header("Referrer-Policy", "no-referrer")
         # close each connection: this bridge is one request at a time, and a
         # kept-alive socket can leave a client's fetch (newer undici) awaiting
         # reuse that never comes. Content-Length + close = the response ends here.
