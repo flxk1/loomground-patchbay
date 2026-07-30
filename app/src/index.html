@@ -1612,6 +1612,9 @@ async function applyActionLink(token){
   const dp=document.getElementById('decisionpanel');
   if(!c||c.ok===false){ announce('This link no longer works: '+((c&&c.error)||'refused')); if(!dp) openDecisionPanel(); return c; }
   window._decAuth={party:c.claimed_by,token:token,rung:'channel-link'};
+  // token is captured into memory above; drop it from the visible URL so the
+  // single-use credential leaves the address bar, history, and any proxy log.
+  try{ if(window.history&&history.replaceState) history.replaceState(null,'',location.pathname); }catch(_){}
   window._decId=c.decision_id; window._decClaim=c;
   (window._decisionQueue=window._decisionQueue||[]).unshift(c.surface);
   if(!dp) await openDecisionPanel(); else if(dp._decisionRefresh) dp._decisionRefresh();
@@ -1701,6 +1704,12 @@ window.loadWsRail=loadWsRail; window.wsMute=wsMute; window.focusWs=focusWs; wind
 window.openWorkspacePanel=openWorkspacePanel; window.loadWorkspace=loadWorkspace; window.openWorkflowPanel=openWorkflowPanel; window.openContractPanel=openContractPanel;
 window.boot=boot; window.openHelpPanel=openHelpPanel; window.loadHelp=loadHelp; window.filterHelp=filterHelp; window.openOnboardingWizard=openOnboardingWizard; window.dismissOnboarding=dismissOnboarding; window.renderWizStep=renderWizStep; window.openLegalPanel=openLegalPanel; window.openAboutPanel=openAboutPanel; window.openDataPanel=openDataPanel; window.openErasurePanel=openErasurePanel; window.openBringInPanel=openBringInPanel; window.openAIPanel=openAIPanel; window.openLockPanel=openLockPanel; window.toggleTicker=toggleTicker; window.loadTicker=loadTicker; window.openApprovalsPanel=openApprovalsPanel; window.openLensPanel=openLensPanel; window.openGrounderPanel=openGrounderPanel; window.openConformityPanel=openConformityPanel; window.openAuditPanel=openAuditPanel; window.reload=reload; window.S=S; window.addNode=addNode; window.wire=wire; window.tool=tool; window.render=render; window.runUC=runUC; window.requestSignoff=requestSignoff; window.parseResvTarget=parseResvTarget; window.routerRequestSignoffs=routerRequestSignoffs; window.setView=setView; window.renderArrange=renderArrange; window.renderMatrixView=renderMatrixView; window.mxvZoomOut=mxvZoomOut; window.saveEnvironment=saveEnvironment; window.openEnvironment=openEnvironment; window.overrideStep=overrideStep; window.runQuery=runQuery; window.addConnector=addConnector; window.openPolicyPanel=openPolicyPanel; window.openMapPanel=openMapPanel; window.ingestPolicy=ingestPolicy; window.applyTwin=applyTwin; window.openRegisterPanel=openRegisterPanel; window.openEditorPanel=openEditorPanel; window.editorLoad=editorLoad; window.editorValidate=editorValidate; window.editorApply=editorApply; window.drawLoom=drawLoom; window.renderDeskView=renderDeskView; window.openMatrixPanel=openMatrixPanel; window.openCoveragePanel=openCoveragePanel; window.openEgressPanel=openEgressPanel; window.openRolesPanel=openRolesPanel; window.fillTrackStrip=fillTrackStrip; window.openPolicySettingsPanel=openPolicySettingsPanel;
 window.draftQueue=draftQueue; window.draftFlush=draftFlush; window.draftFlushAll=draftFlushAll; window.draftDiscard=draftDiscard; window.draftLoaded=draftLoaded; window.draftChipTick=draftChipTick; window.rehydrateDrafts=rehydrateDrafts; window.draftChainTick=draftChainTick;
+// A broken deploy otherwise looks identical to a healthy one: the ~16 quiet
+// catch sites swallow their own failures. This top-level net catches whatever
+// still reaches the runtime and surfaces it to the announce() channel (and the
+// console) so a failure is at least not fully mute.
+window.addEventListener('error', function(e){ try{ announce('Something went wrong: '+((e&&e.message)||'error')); }catch(_){} if(window.console&&console.error) console.error('[patchbay]', e&&(e.error||e.message||e)); });
+window.addEventListener('unhandledrejection', function(e){ const r=e&&e.reason; try{ announce('Something went wrong: '+((r&&r.message)||r||'rejected')); }catch(_){} if(window.console&&console.error) console.error('[patchbay] unhandled rejection', r); });
 boot();
 </script>
 </body>
