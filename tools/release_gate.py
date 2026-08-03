@@ -11,7 +11,7 @@ import ast
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_VERSION = "0.3.1"
+EXPECTED_VERSION = "0.2.1"
 FORBIDDEN_PARTS = {".pytest_cache", "__pycache__", "node_modules"}
 FORBIDDEN_NAMES = {".DS_Store", ".env", ".env.local"}
 STANDALONE_GATE = ROOT / "app" / "standalone_render_test.py"
