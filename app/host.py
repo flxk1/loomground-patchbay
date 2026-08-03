@@ -59,6 +59,10 @@ _FONT_FILES: frozenset[str] = frozenset({
 _UNIT_FILES: frozenset[str] = frozenset({
     "state.mjs",
     "say.mjs",
+    "verdict.mjs",
+    "patchbay.mjs",
+    "run.mjs",
+    "matrix.mjs",
 })
 
 # Hostnames that count as "this machine". A request whose Host header or Origin

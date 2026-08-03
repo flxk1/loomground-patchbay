@@ -71,10 +71,19 @@ export function createStore(call) {
   // its outside, then publish. The only entry that refreshes the snapshot.
   async function hydrate() {
     const r = await call('workspace_workflow', { op: 'console_snapshot', params: {} });
-    snapshot = (r && Array.isArray(r.buses))
+    const ok = r && Array.isArray(r.buses);
+    snapshot = ok
       ? r
       : { buses: [], count: 0, attention: [], attention_overflow: 0 };
-    if (!s.activeWorkspace && snapshot.buses.length) s.activeWorkspace = snapshot.buses[0].path;
+    // A refreshed inventory is authoritative — but only when the call actually
+    // returned one. Re-point the focus when the snapshot no longer lists it, so
+    // no centre unit queries a vanished workspace while the header says "0
+    // workspaces". On a failed snapshot (no buses array) keep the current focus
+    // rather than dropping the user's place on a transient error.
+    if (ok && !snapshot.buses.some((b) => b.path === s.activeWorkspace)) {
+      s.activeWorkspace = snapshot.buses.length ? snapshot.buses[0].path : null;
+      s.focusPath = [];
+    }
     await project();
     emit();
   }
