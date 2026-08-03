@@ -194,8 +194,9 @@
   .say-patch{color:var(--txt)}
   .say-lg summary{cursor:pointer;font-size:11px;color:var(--txt-dim)}
   .say-lg pre{white-space:pre-wrap;font-size:10.5px;color:var(--txt);background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:8px;max-height:180px;overflow:auto}
-  /* Governance modal — hosts the composable widgets (units/policy|register|
-     editor|controller.mjs). One widget mounts into #govern-body at a time. */
+  /* Governance modal — hosts the composable widgets (units/register|editor|
+     controller.mjs). One widget mounts into #govern-body at a time. Policy
+     ingest and queries are the chat's job, so no policy panel lives here. */
   .gov-dialog{min-width:min(560px,calc(100vw - 40px));max-width:min(620px,calc(100vw - 40px));max-height:88vh;display:flex;flex-direction:column;overflow:hidden}
   .gov-dialog #govern-close{border:0;background:transparent;color:var(--txt-dim);font-size:15px;cursor:pointer;padding:2px 6px}
   .gov-dialog #govern-close:hover{color:var(--txt)}
@@ -206,30 +207,21 @@
   .gov-body .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .gov-body .dim{color:var(--txt-dim)}
   /* shared note/label look across the widgets */
-  .pol-lbl,.reg-lbl,.gov-body label{display:block;margin:10px 0 4px;color:var(--txt-dim);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
-  .pol-hint,.ed-hint,.ctl-hint,.reg-note,.ctl-note,.pol-note.dim{font-size:11px;color:var(--txt-dim);margin:4px 0}
-  .pol-note,.ed-note{font-size:11.5px;margin:8px 0;padding:7px 9px;border-radius:6px;border:1px solid var(--line);background:var(--panel-2)}
-  .pol-note.ok,.ed-note.ok{border-color:#2f4a3a;color:#8fd1ad}
-  .pol-note.bad,.ed-note.bad{border-color:#5a2f2a;color:#e6b0aa}
-  .pol-note.warn{border-color:#5a4f2a;color:#e6cfa0}
-  .pol-list,.gov-body ul{margin:4px 0 8px 16px;padding:0;font-size:11px}
-  .pol-list.handoff li{color:var(--hot)}
-  .pol-det summary,.gov-body details summary{cursor:pointer;font-size:11px;color:var(--txt-dim)}
-  .pol-det pre{white-space:pre-wrap;font-size:10.5px;color:var(--txt);background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:8px;max-height:180px;overflow:auto}
+  .reg-lbl,.gov-body label{display:block;margin:10px 0 4px;color:var(--txt-dim);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
+  .ed-hint,.ctl-hint,.reg-note,.ctl-note{font-size:11px;color:var(--txt-dim);margin:4px 0}
+  .ed-note{font-size:11.5px;margin:8px 0;padding:7px 9px;border-radius:6px;border:1px solid var(--line);background:var(--panel-2)}
+  .ed-note.ok{border-color:#2f4a3a;color:#8fd1ad}
+  .ed-note.bad{border-color:#5a2f2a;color:#e6b0aa}
+  .gov-body ul{margin:4px 0 8px 16px;padding:0;font-size:11px}
+  .gov-body details summary{cursor:pointer;font-size:11px;color:var(--txt-dim)}
   .gov-body textarea{width:100%;height:130px;background:var(--panel-2);border:1px solid var(--line);color:var(--txt);font-family:inherit;font-size:12px;border-radius:6px;padding:8px}
   #ed-text{height:150px}
-  .pol-chk{display:block;font-size:10.5px;color:var(--txt-dim);margin-top:6px;text-transform:none;letter-spacing:0}
-  .pol-btns,.ed-btns{display:flex;gap:6px;margin-top:8px}
-  .pol-qrow{display:flex;gap:6px;margin-top:4px}
-  .gov-body select{font-family:inherit;font-size:12px;color:var(--txt);background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:6px 8px}
-  .pol-btn,.reg-btn,.ed-btn{font-family:inherit;font-size:11.5px;color:var(--txt-dim);background:transparent;border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
-  .pol-btn:hover,.reg-btn:hover,.ed-btn:hover{color:var(--txt)}
-  .pol-accent,.ed-accent{border-color:#3a3357;color:#b9acff}
-  .pol-ok,.ed-ok{border-color:#2f4a3a;color:#8fd1ad}
-  .pol-ok{width:100%;margin-top:6px}
+  .ed-btns{display:flex;gap:6px;margin-top:8px}
+  .reg-btn,.ed-btn{font-family:inherit;font-size:11.5px;color:var(--txt-dim);background:transparent;border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
+  .reg-btn:hover,.ed-btn:hover{color:var(--txt)}
+  .ed-accent{border-color:#3a3357;color:#b9acff}
+  .ed-ok{border-color:#2f4a3a;color:#8fd1ad}
   .ed-btn{flex:1}.reg-btn{width:100%;margin-top:8px}
-  .pol-qhead{font-size:12px;margin-top:6px}
-  .pol-qrow-out{border-top:1px solid var(--line);padding:5px 0;font-size:11px}
   /* Register */
   .reg-empty{color:var(--txt-dim);font-size:11px;padding:8px 0}
   .reg-tbl{width:100%;border-collapse:collapse;font-size:11px}
@@ -339,8 +331,7 @@
     <button type="button" id="govern-close" aria-label="Close" title="Close (Esc)">✕</button>
   </div>
   <div class="gov-tabs" role="tablist" aria-label="governance panels">
-    <button type="button" class="gov-tab on" role="tab" data-panel="policy" aria-selected="true">Policy</button>
-    <button type="button" class="gov-tab" role="tab" data-panel="register" aria-selected="false">Register</button>
+    <button type="button" class="gov-tab on" role="tab" data-panel="register" aria-selected="true">Register</button>
     <button type="button" class="gov-tab" role="tab" data-panel="editor" aria-selected="false">Editor</button>
     <button type="button" class="gov-tab" role="tab" data-panel="controller" aria-selected="false">Controller</button>
   </div>
@@ -370,9 +361,12 @@
   import { createPatchbay } from '/units/patchbay.mjs';
   import { createRun } from '/units/run.mjs';
   import { createMatrix } from '/units/matrix.mjs';
-  // Governance widgets — the classic panels as composable units over the same
-  // store + /tool bridge. Optional: the console boots without them (guarded).
-  import { createPolicy } from '/units/policy.mjs';
+  // Governance widgets — the classic panels that genuinely need UI, as
+  // composable units over the same store + /tool bridge. Optional: the console
+  // boots without them (guarded). Policy ingest ("build twin") and read-only
+  // queries ("ask the patch") are NOT here — they are the chat's job (say.mjs
+  // drives policy_ingest / patch_apply / governance_query); a panel would only
+  // duplicate the Search/Chat bar.
   import { createRegister } from '/units/register.mjs';
   import { createEditor } from '/units/editor.mjs';
   import { createController } from '/units/controller.mjs';
@@ -381,7 +375,6 @@
   window.__RVND_createPatchbay = createPatchbay;
   window.__RVND_createRun = createRun;
   window.__RVND_createMatrix = createMatrix;
-  window.__RVND_createPolicy = createPolicy;
   window.__RVND_createRegister = createRegister;
   window.__RVND_createEditor = createEditor;
   window.__RVND_createController = createController;
@@ -614,13 +607,13 @@
     // last and mounts the next, so subscriptions never leak. Guarded: if a unit
     // failed to import the console still boots, that tab just stays inert.
     var GOV_FACTORIES={
-      policy:window.__RVND_createPolicy, register:window.__RVND_createRegister,
+      register:window.__RVND_createRegister,
       editor:window.__RVND_createEditor, controller:window.__RVND_createController };
     var governDialog=document.getElementById('govern-dialog');
     var governOpen=document.getElementById('govern-open');
     var governBody=document.getElementById('govern-body');
     var governTabs=governDialog?governDialog.querySelectorAll('.gov-tab'):[];
-    var govMounted=null, govPanel='policy';
+    var govMounted=null, govPanel='register';
     function govMount(name){
       var make=GOV_FACTORIES[name];
       if(govMounted&&govMounted.unmount){ try{ govMounted.unmount(); }catch(_){} }
