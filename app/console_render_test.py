@@ -26,8 +26,17 @@ _CONSOLE_UNITS = {
     "matrix.mjs": "createMatrix",
 }
 _HELPER_UNITS = {"verdict.mjs": "resolveEgressVerdict"}
+# Governance widgets — the classic panels reimplemented as composable units.
+# The console imports them and mounts one at a time into #govern-body.
+_GOV_UNITS = {
+    "policy.mjs": "createPolicy",
+    "register.mjs": "createRegister",
+    "editor.mjs": "createEditor",
+    "controller.mjs": "createController",
+}
 _SHELL_MARKERS = ('data-centre="build"', 'data-centre="run"',
-                  "Search/Chat", 'id="centre-body"', 'id="ws"')
+                  "Search/Chat", 'id="centre-body"', 'id="ws"',
+                  'id="govern-body"')
 
 
 def _get(port: int, path: str) -> tuple[int, str]:
@@ -49,11 +58,11 @@ def main() -> int:
             if marker not in html:
                 print(f"FAIL: console shell missing {marker!r}")
                 return 1
-        for unit in _CONSOLE_UNITS:
+        for unit in {**_CONSOLE_UNITS, **_GOV_UNITS}:
             if f"/units/{unit}" not in html:
                 print(f"FAIL: console does not import /units/{unit}")
                 return 1
-        for unit, symbol in {**_CONSOLE_UNITS, **_HELPER_UNITS}.items():
+        for unit, symbol in {**_CONSOLE_UNITS, **_HELPER_UNITS, **_GOV_UNITS}.items():
             s, mod = _get(port, f"/units/{unit}")
             if s != 200:
                 print(f"FAIL: /units/{unit} did not serve (status {s})")
