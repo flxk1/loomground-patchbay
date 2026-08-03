@@ -63,13 +63,6 @@ _UNIT_FILES: frozenset[str] = frozenset({
     "patchbay.mjs",
     "run.mjs",
     "matrix.mjs",
-    # Governance widgets — the classic panels that genuinely need UI, as
-    # composable units over the same store + /tool bridge (no classic-shell
-    # runtime dependency). Policy ingest and queries are the chat's job, not a
-    # panel, so there is no policy unit here.
-    "register.mjs",
-    "editor.mjs",
-    "controller.mjs",
 })
 
 # Hostnames that count as "this machine". A request whose Host header or Origin
