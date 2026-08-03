@@ -63,6 +63,12 @@ _UNIT_FILES: frozenset[str] = frozenset({
     "patchbay.mjs",
     "run.mjs",
     "matrix.mjs",
+    # Governance widgets — the classic panels, reimplemented as composable units
+    # over the same store + /tool bridge (no classic-shell runtime dependency).
+    "policy.mjs",
+    "register.mjs",
+    "editor.mjs",
+    "controller.mjs",
 })
 
 # Hostnames that count as "this machine". A request whose Host header or Origin
