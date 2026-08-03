@@ -194,6 +194,68 @@
   .say-patch{color:var(--txt)}
   .say-lg summary{cursor:pointer;font-size:11px;color:var(--txt-dim)}
   .say-lg pre{white-space:pre-wrap;font-size:10.5px;color:var(--txt);background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:8px;max-height:180px;overflow:auto}
+  /* Governance modal — hosts the composable widgets (units/policy|register|
+     editor|controller.mjs). One widget mounts into #govern-body at a time. */
+  .gov-dialog{min-width:min(560px,calc(100vw - 40px));max-width:min(620px,calc(100vw - 40px));max-height:88vh;display:flex;flex-direction:column;overflow:hidden}
+  .gov-dialog #govern-close{border:0;background:transparent;color:var(--txt-dim);font-size:15px;cursor:pointer;padding:2px 6px}
+  .gov-dialog #govern-close:hover{color:var(--txt)}
+  .gov-tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);margin:12px 0 0}
+  .gov-tab{font-family:inherit;font-size:12px;color:var(--txt-dim);background:transparent;border:0;border-bottom:2px solid transparent;padding:7px 12px;cursor:pointer}
+  .gov-tab.on{color:var(--txt);border-bottom-color:var(--hot);font-weight:600}
+  .gov-body{flex:1;overflow:auto;padding:12px 2px 2px;min-height:120px}
+  .gov-body .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .gov-body .dim{color:var(--txt-dim)}
+  /* shared note/label look across the widgets */
+  .pol-lbl,.reg-lbl,.gov-body label{display:block;margin:10px 0 4px;color:var(--txt-dim);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
+  .pol-hint,.ed-hint,.ctl-hint,.reg-note,.ctl-note,.pol-note.dim{font-size:11px;color:var(--txt-dim);margin:4px 0}
+  .pol-note,.ed-note{font-size:11.5px;margin:8px 0;padding:7px 9px;border-radius:6px;border:1px solid var(--line);background:var(--panel-2)}
+  .pol-note.ok,.ed-note.ok{border-color:#2f4a3a;color:#8fd1ad}
+  .pol-note.bad,.ed-note.bad{border-color:#5a2f2a;color:#e6b0aa}
+  .pol-note.warn{border-color:#5a4f2a;color:#e6cfa0}
+  .pol-list,.gov-body ul{margin:4px 0 8px 16px;padding:0;font-size:11px}
+  .pol-list.handoff li{color:var(--hot)}
+  .pol-det summary,.gov-body details summary{cursor:pointer;font-size:11px;color:var(--txt-dim)}
+  .pol-det pre{white-space:pre-wrap;font-size:10.5px;color:var(--txt);background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:8px;max-height:180px;overflow:auto}
+  .gov-body textarea{width:100%;height:130px;background:var(--panel-2);border:1px solid var(--line);color:var(--txt);font-family:inherit;font-size:12px;border-radius:6px;padding:8px}
+  #ed-text{height:150px}
+  .pol-chk{display:block;font-size:10.5px;color:var(--txt-dim);margin-top:6px;text-transform:none;letter-spacing:0}
+  .pol-btns,.ed-btns{display:flex;gap:6px;margin-top:8px}
+  .pol-qrow{display:flex;gap:6px;margin-top:4px}
+  .gov-body select{font-family:inherit;font-size:12px;color:var(--txt);background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:6px 8px}
+  .pol-btn,.reg-btn,.ed-btn{font-family:inherit;font-size:11.5px;color:var(--txt-dim);background:transparent;border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
+  .pol-btn:hover,.reg-btn:hover,.ed-btn:hover{color:var(--txt)}
+  .pol-accent,.ed-accent{border-color:#3a3357;color:#b9acff}
+  .pol-ok,.ed-ok{border-color:#2f4a3a;color:#8fd1ad}
+  .pol-ok{width:100%;margin-top:6px}
+  .ed-btn{flex:1}.reg-btn{width:100%;margin-top:8px}
+  .pol-qhead{font-size:12px;margin-top:6px}
+  .pol-qrow-out{border-top:1px solid var(--line);padding:5px 0;font-size:11px}
+  /* Register */
+  .reg-empty{color:var(--txt-dim);font-size:11px;padding:8px 0}
+  .reg-tbl{width:100%;border-collapse:collapse;font-size:11px}
+  .reg-tbl th{text-align:left;color:var(--txt-dim);padding:4px 6px;font-weight:600}
+  .reg-tbl td{padding:4px 6px;border-top:1px solid var(--line)}
+  .reg-basis{color:#e2877f}
+  .reg-sum{font-size:11px;margin-top:8px;color:var(--txt-dim)}
+  .reg-frow{border-top:1px solid var(--line);padding:5px 0;font-size:11px}
+  /* Controller */
+  .ctl-allstop{width:100%;margin:4px 0 10px;padding:10px;border:1px solid #cf463c;color:#fff;background:#3a1d1b;font-weight:600;font-family:inherit;border-radius:6px;cursor:pointer}
+  .ctl-row{margin:3px 0;font-size:12px}.ctl-row b{color:#fff}
+  .ctl-lamp{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+  .ctl-midi{font-size:11px;margin-top:8px}
+  .ctl-ok{color:#92c4ac}.ctl-warn{color:#e6b483}
+  .ctl-bh{font-size:12px}
+  .ctl-brow{border-top:1px solid var(--line);padding:7px 0}
+  .ctl-blbl{display:flex;gap:8px;align-items:center;font-size:11px}
+  .ctl-bctl{display:flex;gap:6px;margin-top:6px;align-items:center;flex-wrap:wrap}
+  .ctl-sp{flex:1}
+  .ctl-learn,.ctl-fire{font-family:inherit;font-size:10.5px;border:1px solid var(--line);color:var(--txt-dim);background:transparent;border-radius:5px;padding:3px 9px;cursor:pointer}
+  .ctl-learn:hover,.ctl-fire:hover{color:var(--txt)}
+  .ctl-learn[disabled]{opacity:.5;cursor:not-allowed}
+  .ctl-chip{font-size:9.5px;border-radius:4px;padding:1px 6px;color:#14161b}
+  .ctl-chip.tighten{background:#5aa886}.ctl-chip.loosen{background:#c8a23f}
+  .ctl-note-chip{font-size:10px;background:#21252e;color:#cdd2dc;border-radius:4px;padding:1px 6px}
+  .ctl-rm{cursor:pointer;color:#e2554a}
 </style>
 </head>
 <body>
@@ -210,6 +272,7 @@
     <span class="env" id="env" aria-live="polite" title="every workspace you can see — console_snapshot">—</span>
     <span class="spacer"></span>
     <button class="rec" id="record-settings" type="button" title="Recording detail and activity display">Record · Minimal</button>
+    <button class="rec" id="govern-open" type="button" title="Governance panels — policy, register, editor, controller" aria-label="Governance panels">⚡ Govern</button>
     <button class="rec" id="settings-open" type="button" title="Settings — setup, backup, upgrade and uninstall commands" aria-label="Settings">⚙ Settings</button>
     <button class="rec" id="server-open" type="button" title="About this server — version, tools, signing key" aria-label="About this server">ⓘ About</button>
     <a class="rec" href="/sign" title="open the human sign-off page">5 · Sign</a>
@@ -269,6 +332,20 @@
   <div id="server-about" style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--txt-dim);white-space:pre-wrap;margin:10px 0;padding:8px;border:1px solid var(--line);border-radius:6px">loading…</div>
   <menu><button type="button" class="primary" id="server-close">Done</button></menu>
 </div>
+<div class="ws-dialog gov-dialog" id="govern-dialog" role="dialog" aria-modal="true" aria-labelledby="govern-dialog-title" hidden>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div id="govern-dialog-title" style="font-weight:700">Governance</div>
+    <span style="flex:1"></span>
+    <button type="button" id="govern-close" aria-label="Close" title="Close (Esc)">✕</button>
+  </div>
+  <div class="gov-tabs" role="tablist" aria-label="governance panels">
+    <button type="button" class="gov-tab on" role="tab" data-panel="policy" aria-selected="true">Policy</button>
+    <button type="button" class="gov-tab" role="tab" data-panel="register" aria-selected="false">Register</button>
+    <button type="button" class="gov-tab" role="tab" data-panel="editor" aria-selected="false">Editor</button>
+    <button type="button" class="gov-tab" role="tab" data-panel="controller" aria-selected="false">Controller</button>
+  </div>
+  <div id="govern-body" class="gov-body">loading…</div>
+</div>
 <div class="ws-dialog" id="ws-dialog" role="dialog" aria-modal="true" aria-labelledby="ws-dialog-title" hidden>
   <form id="ws-form">
     <div id="ws-dialog-title" style="font-weight:700">Create or open a workspace</div>
@@ -293,11 +370,21 @@
   import { createPatchbay } from '/units/patchbay.mjs';
   import { createRun } from '/units/run.mjs';
   import { createMatrix } from '/units/matrix.mjs';
+  // Governance widgets — the classic panels as composable units over the same
+  // store + /tool bridge. Optional: the console boots without them (guarded).
+  import { createPolicy } from '/units/policy.mjs';
+  import { createRegister } from '/units/register.mjs';
+  import { createEditor } from '/units/editor.mjs';
+  import { createController } from '/units/controller.mjs';
   window.__RVND_createStore = createStore;
   window.__RVND_createSay = createSay;
   window.__RVND_createPatchbay = createPatchbay;
   window.__RVND_createRun = createRun;
   window.__RVND_createMatrix = createMatrix;
+  window.__RVND_createPolicy = createPolicy;
+  window.__RVND_createRegister = createRegister;
+  window.__RVND_createEditor = createEditor;
+  window.__RVND_createController = createController;
   window.dispatchEvent(new Event('rvnd-store-ready'));
 </script>
 <script>
@@ -520,6 +607,41 @@
     });
     document.getElementById('server-close').addEventListener('click',closeServer);
     wireModal(serverDialog,closeServer);
+
+    // Governance panels — the classic drawers as composable widget units
+    // (units/policy|register|editor|controller.mjs) over the same store + /tool
+    // bridge. One mounts into #govern-body at a time; a tab switch unmounts the
+    // last and mounts the next, so subscriptions never leak. Guarded: if a unit
+    // failed to import the console still boots, that tab just stays inert.
+    var GOV_FACTORIES={
+      policy:window.__RVND_createPolicy, register:window.__RVND_createRegister,
+      editor:window.__RVND_createEditor, controller:window.__RVND_createController };
+    var governDialog=document.getElementById('govern-dialog');
+    var governOpen=document.getElementById('govern-open');
+    var governBody=document.getElementById('govern-body');
+    var governTabs=governDialog?governDialog.querySelectorAll('.gov-tab'):[];
+    var govMounted=null, govPanel='policy';
+    function govMount(name){
+      var make=GOV_FACTORIES[name];
+      if(govMounted&&govMounted.unmount){ try{ govMounted.unmount(); }catch(_){} }
+      govMounted=null; governBody.innerHTML='';
+      govPanel=name;
+      governTabs.forEach(function(t){ var on=t.dataset.panel===name; t.classList.toggle('on',on); t.setAttribute('aria-selected',String(on)); });
+      if(!make){ governBody.innerHTML='<div class="reg-empty">this panel is unavailable</div>'; return; }
+      govMounted=make(store,call,document);
+      govMounted.mount(governBody);
+    }
+    function closeGovern(){
+      if(govMounted&&govMounted.unmount){ try{ govMounted.unmount(); }catch(_){} }
+      govMounted=null; governDialog.hidden=true; governOpen.focus();
+    }
+    if(governOpen&&governDialog){
+      governOpen.addEventListener('click',function(){ governDialog.hidden=false; govMount(govPanel); var a=governDialog.querySelector('.gov-tab.on'); if(a)a.focus(); });
+      governTabs.forEach(function(t){ t.addEventListener('click',function(){ govMount(t.dataset.panel); }); });
+      document.getElementById('govern-close').addEventListener('click',closeGovern);
+      wireModal(governDialog,closeGovern);
+    }
+
     showActivityBox.addEventListener('change',function(){
       showActivity=this.checked;
       try{ localStorage.setItem('rvnd.showActivity',String(showActivity)); }catch(_){}
