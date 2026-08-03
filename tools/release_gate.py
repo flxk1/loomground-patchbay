@@ -15,6 +15,7 @@ EXPECTED_VERSION = "0.2.1"
 FORBIDDEN_PARTS = {".pytest_cache", "__pycache__", "node_modules"}
 FORBIDDEN_NAMES = {".DS_Store", ".env", ".env.local"}
 STANDALONE_GATE = ROOT / "app" / "standalone_render_test.py"
+CONSOLE_GATE = ROOT / "app" / "console_render_test.py"
 PRODUCTION_FILES = (
     ROOT / "app" / "host.py",
     ROOT / "app" / "serve.py",
@@ -109,8 +110,19 @@ def main() -> int:
     if result.returncode:
         fail(f"{STANDALONE_GATE.relative_to(ROOT)} failed")
 
+    if not CONSOLE_GATE.is_file():
+        fail("live-console render gate is missing")
+    print(f"==> {CONSOLE_GATE.relative_to(ROOT)}", flush=True)
+    result = subprocess.run(
+        [sys.executable, str(CONSOLE_GATE)],
+        cwd=ROOT,
+        env={"PATH": str(Path(sys.executable).parent), "PYTHONDONTWRITEBYTECODE": "1"},
+    )
+    if result.returncode:
+        fail(f"{CONSOLE_GATE.relative_to(ROOT)} failed")
+
     print(
-        "RELEASE GATE PASS: self-contained Patchbay widget, "
+        "RELEASE GATE PASS: self-contained Patchbay widget + live console, "
         f"{len(files)} tracked files, JSON and Python coherent, no RVND dependency"
     )
     return 0
