@@ -29,7 +29,6 @@ _HELPER_UNITS = {"verdict.mjs": "resolveEgressVerdict"}
 # Governance widgets — the classic panels reimplemented as composable units.
 # The console imports them and mounts one at a time into #govern-body.
 _GOV_UNITS = {
-    "policy.mjs": "createPolicy",
     "register.mjs": "createRegister",
     "editor.mjs": "createEditor",
     "controller.mjs": "createController",
