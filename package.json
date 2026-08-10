@@ -1,6 +1,6 @@
 {
   "name": "loomground-patchbay",
-  "version": "0.3.0",
+  "version": "0.2.1",
   "description": "The standalone presentation plane consumed by RVND.",
   "license": "AGPL-3.0-only",
   "private": false,
