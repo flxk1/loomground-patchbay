@@ -3,7 +3,7 @@
 # Copyright 2026 flxk1
 """Standalone static server for the Patchbay presentation plane.
 
-RVND may consume :class:`host.HostRoutes` and add its own runtime bridge.
+host may consume :class:`host.HostRoutes` and add its own runtime bridge.
 This entry point deliberately serves only Patchbay-owned HTML, JavaScript,
 fonts, and units. It imports no plane runtime or governance implementation.
 """

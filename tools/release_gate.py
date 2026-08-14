@@ -25,7 +25,7 @@ FORBIDDEN_PRODUCTION_TEXT = (
     "from workspaces",
     "PATCHBAY_RVND_ROOT",
     "RVND_BRIDGE_TOKEN",
-    "github.com/flxk1/rvnd",
+    "github.com/flxk1/host",
 )
 
 
@@ -70,8 +70,8 @@ def main() -> int:
     ]
     if bad:
         fail("tracked release debris: " + ", ".join(map(str, bad)))
-    if ROOT / "rvnd-test-revision.txt" in files:
-        fail("Patchbay must not pin or clone RVND")
+    if ROOT / "host-test-revision.txt" in files:
+        fail("Patchbay must not pin or clone host")
 
     for path in files:
         if path.suffix == ".json":
@@ -123,7 +123,7 @@ def main() -> int:
 
     print(
         "RELEASE GATE PASS: self-contained Patchbay widget + live console, "
-        f"{len(files)} tracked files, JSON and Python coherent, no RVND dependency"
+        f"{len(files)} tracked files, JSON and Python coherent, no host dependency"
     )
     return 0
 
