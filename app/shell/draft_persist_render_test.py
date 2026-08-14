@@ -52,7 +52,7 @@ def setup():
                         "risk": "high"}, log_root=LR)
     D.save(F, "chat", {"entries": [
         {"who": "you", "text": "hello governance"},
-        {"who": "rvnd", "text": "routed: ask"}],
+        {"who": "host", "text": "routed: ask"}],
         "policy": "no pii egress"}, log_root=LR)
 
 

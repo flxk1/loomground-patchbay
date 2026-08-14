@@ -3,7 +3,7 @@
 # Copyright 2026 flxk1
 """Self-contained gate for the live console and its widget units.
 
-Boots Patchbay's own server (no RVND backend) and asserts the console page
+Boots Patchbay's own server (no host backend) and asserts the console page
 serves with its five-frame layout and imports every widget unit, and that each
 unit module serves and exports its factory. Complements
 standalone_render_test.py (the classic widget host): together they cover both

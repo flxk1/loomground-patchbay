@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: AGPL-3.0-only
 # Copyright 2026 flxk1
-"""Static hosting half of the rvnd app server — zero `workspaces` imports.
+"""Static hosting half of the host app server — zero `workspaces` imports.
 
 Serves the shell pages (console, classic patchbay, sign-off widget),
 composes the classic page with its panel pack
@@ -379,7 +379,7 @@ class HostRoutes:
 
     def head_inject(self) -> str:
         """Markup a bridge (or other consumer) wants injected before
-        </head> on every served page — e.g. rvnd's /tool transport wiring.
+        </head> on every served page — e.g. host's /tool transport wiring.
         HostRoutes itself injects nothing; this is the seam a bridge
         subclass overrides. Returning "" changes no served byte."""
         return ""
@@ -400,7 +400,7 @@ class HostRoutes:
         """Serve a static GET route if `self.path` names one. Returns True
         when handled (the caller must not also respond); False for anything
         that isn't a host route, so the caller can fall through to its own
-        routes (rvnd's /whoami) before 404ing."""
+        routes (host's /whoami) before 404ing."""
         if self.path in ("/", "/console", "/console.html"):
             # the new default front door; falls back to the classic console
             # until console.html exists, so the app never 404s at /.

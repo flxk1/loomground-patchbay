@@ -11,14 +11,14 @@ decision policy and executes no governed operations.
 - `app/src/shell/` contains the reusable shell and Patchbay renderers.
 - `app/src/units/` contains the canvas units.
 - `app/src/index.html` is the standalone shell document.
-- `app/host.py` serves presentation assets without importing RVND or
+- `app/host.py` serves presentation assets without importing host or
   `workspaces`.
 - `app/harness/` and `app/shell/` contain the executable render contracts.
 - `docs/RELEASE-DoD.md` defines the release gate.
 
-RVND is a consumer of a released Patchbay root. It supplies the live `/tool`
-bridge and RVND-owned governance panels around the presentation assets;
-Patchbay does not import RVND.
+host is a consumer of a released Patchbay root. It supplies the live `/tool`
+bridge and host-owned governance panels around the presentation assets;
+Patchbay does not import host.
 
 ## Run
 
@@ -34,9 +34,9 @@ Open `http://127.0.0.1:8765/widget`.
 python3 tools/release_gate.py
 ```
 
-The gate validates the tracked release tree, rejects RVND imports and fixture
+The gate validates the tracked release tree, rejects host imports and fixture
 links, and executes the standalone widget through its loopback host. Consumer
-integration is verified downstream by RVND against its pinned Patchbay root.
+integration is verified downstream by host against its pinned Patchbay root.
 
 ## License
 

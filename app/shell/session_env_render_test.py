@@ -4,7 +4,7 @@
 """Render test for S5 slice 1 — "Save env" (environment save via workspace_session).
 
 Seeds two registered workspaces (each with a chain), boots serve.py, and checks
-that the header "Save env" action captures the whole rail as one signed .rvnd
+that the header "Save env" action captures the whole rail as one signed .host
 that verifies through the live MCP.
 
   python3 app/session_env_render_test.py

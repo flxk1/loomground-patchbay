@@ -9,10 +9,10 @@ authority is `python3 tools/release_gate.py`.
 
 - [ ] The standalone `/widget` surface executes against Patchbay's real
       ephemeral loopback host and reports `PASS`.
-- [ ] Patchbay production files contain no RVND/workspaces import, RVND
+- [ ] Patchbay production files contain no host/workspaces import, host
       revision pin, fixture link, sibling-checkout assumption, or network clone.
-- [ ] RVND-specific scripts under `app/shell/` are consumer contract fixtures,
-      not Patchbay release gates. RVND executes the downstream integration gate
+- [ ] host-specific scripts under `app/shell/` are consumer contract fixtures,
+      not Patchbay release gates. host executes the downstream integration gate
       after binding to the approved Patchbay root.
 - [ ] Every Python file compiles, every JSON document parses, and no tracked
       `.DS_Store`, bytecode, cache, secret-shaped environment file, or
@@ -20,7 +20,7 @@ authority is `python3 tools/release_gate.py`.
 - [ ] The release gate leaves no dependency link or generated test artifact in
       the repository.
 
-## RVND automated authority, blocking
+## host automated authority, blocking
 
 - [ ] The standalone shell and unit contracts describe the shipped behavior,
       including any compatibility break.
@@ -29,8 +29,8 @@ authority is `python3 tools/release_gate.py`.
 - [ ] No decision policy or governed execution has leaked into the
       presentation plane. (Governance concepts may appear as display labels;
       their semantics and enforcement stay out of this plane.)
-- [ ] RVND's consumer gate records the exact Patchbay root it consumes.
-- [ ] RVND gates licensing, attribution, accessibility, and browser-support
+- [ ] host's consumer gate records the exact Patchbay root it consumes.
+- [ ] host gates licensing, attribution, accessibility, and browser-support
       evidence.
 
 ## Release command
